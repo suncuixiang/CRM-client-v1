@@ -56,43 +56,6 @@ let userListModule = (function () {
         });
     };
 
-    let renderTable1 = (tableData) => {
-        let str = ``;
-        tableData.forEach(item => {
-            let {
-                id,
-                name,
-                sex,
-                job,
-                department,
-                email,
-                phone,
-                desc
-            } = item;
-            str += `
-                    <tr data-id='${id}' data-name='${name}'>
-                        ${power.includes('userhandle') ? '<td class="w3"><input type="checkbox"></td>' : ''}
-                        <td class="w10">${name}</td>
-                        <td class="w5">${sex == 0 ? '女' : '男'}</td>
-                        <td class="w10">${department}</td>
-                        <td class="w10">${job}</td>
-                        <td class="w15">${email}</td>
-                        <td class="w15">${phone}</td>
-                        <td class="w20">${desc}</td>
-                        ${
-                            power.includes('userhandle') ? `
-                            <td class="w12">
-                            <a href="useradd.html?userId=${id}">编辑</a>
-                            <a href="javascript:;">删除</a>
-                            ${power.includes('resetpassword')?`<a href="javascript:;">重置密码</a>`:''}
-                            </td>`:''
-                        }
-                    </tr>
-                    `;
-        });
-        $tbody.html(str);
-    };
-
     let renderTable = (tableData) => {
         let str = ``;
         tableData.forEach(item => {
@@ -143,12 +106,6 @@ let userListModule = (function () {
 
             let filterData = tableData.filter(item=>{
                 return item['departmentId']==departmentId;
-                /* for (let key in item) {
-                    // if (!Object.hasOwnProperty.call(item, key)) return;
-                    if (key=='departmentId') {
-                        return item[key]==departmentId;
-                    }
-                } */
             })
             if(departmentId==0){
                 renderTable(tableData);
@@ -163,30 +120,6 @@ let userListModule = (function () {
             if(key==13){
                 let search = $search.val();
                 // 姓名name 邮箱email 手机号phone
-                /* let filterData =[];
-                for(let i=0;i<tableData.length;i++){
-                    let item=tableData[i];
-                    for (let key in item) {
-                        // if (!Object.hasOwnProperty.call(item, key)) return;
-                        let flag1=false,
-                            flag2=false,
-                            flag3=false;
-                        // console.log(key);
-                        if (key=='name') {
-                            flag1=item[key].includes(search);
-                        }
-                        if (key=='phone') {
-                            flag2=item[key].includes(search);
-                        }
-                        if (key=='email') {
-                            flag3=item[key].includes(search);
-                        }
-                        if(flag1||flag2||flag3){
-                            filterData.push(item);
-                        };
-                    }
-                } */
-                // console.log(filterData);
                 let filterData = tableData.filter((item) => {
                     let { phone, email, name } = item;
                     return (
