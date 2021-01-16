@@ -4,7 +4,7 @@
         let {code}=res;
         if(code==0){
             //用户正常登入
-            return  axios.get('/user/info');
+            // return  axios.get('/user/info');
         }else{
             //用户非法登入，打回登录面
             alert('非法登录',{
@@ -60,8 +60,16 @@
     //动态处理左侧菜单按照权限进行不同的显示
     axios.get('/user/router').then(res=>{
         // console.log(res);
+        let {
+            code,
+            data
+        }=res;
+        if(code!=0){
+            alert('侧边菜单请求失败');
+            return;
+        }
         let str=``;
-        res.forEach(item=>{
+        data.forEach(item=>{
             let {
                 title,
                 icon,

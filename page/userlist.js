@@ -182,7 +182,6 @@ let userListModule = (function () {
             }
 
             //删除用户
-            
             if(tagName==='A'&&targetVal=='删除'){
                 alert(`您确定要删除${userName}吗？`,{
                     title:'当前为风险操作',
@@ -204,6 +203,7 @@ let userListModule = (function () {
                                         // $curRow.remove();
                                         deleteHandle(userId);
                                         renderTable(tableData);
+                                        checkBox();
                                     }
                                 })
                             }else{
@@ -234,6 +234,7 @@ let userListModule = (function () {
                     name: temp[0],
                     sex: temp[1]=='男'?1:0,
                     department: temp[2],
+                    departmentId: temp[2]=='总裁办'?1:(temp[2]=='销售部'?2:3),
                     job: temp[3],
                     email: temp[4],
                     phone: temp[5],
@@ -249,6 +250,7 @@ let userListModule = (function () {
                             handled(){
                                 tableData.filter(item=>{
                                     if(item['id']==userId){
+                                        $curRow.attr('data-name',upData['name']);
                                         for (let key in item) {
                                             if (upData.hasOwnProperty(key)) {
                                                 item[key]=upData[key];
@@ -278,7 +280,9 @@ let userListModule = (function () {
     //复选框
     let checkBox=()=>{
         let allCheck=$headTh.find('input');//全选框
-        let everyCheck=$tbody.find('input');//每一行的复选框
+        let everyCheck=$tbody.find('input').filter((index,item)=>{
+            return $(item).prop('type')=='checkbox';
+        });//每一行的复选框
         allCheck.click(function(){
             let flag=$(this).prop('checked');//选中为true，未选中为false
             everyCheck.prop('checked',flag);//把当前全选框的状态赋值给每一行的复选框
@@ -286,7 +290,7 @@ let userListModule = (function () {
         everyCheck.click(function(){
             //循环查看每一行复选框的状态，如果有一个是false，那就把全选框状态置为false，如果每一行的复选框都是true，那就把全选框状态置为true
             let flag=true;//初始全选框状态
-            everyCheck.each(item=>{
+            everyCheck.each((index,item)=>{
                 let checked=$(item).prop('checked');
                 if(!checked){
                     flag=false;
@@ -313,7 +317,7 @@ let userListModule = (function () {
                             deleteHandle(users[i]);
                         }
                         renderTable(tableData);
-
+                        checkBox();
                     }
                 });
                 return;

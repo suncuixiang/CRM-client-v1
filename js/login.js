@@ -36,7 +36,10 @@
 		}
 
 		//3.对密码进行md5加密
-		password = md5(password);
+		function encodePass(w) {
+			return md5(w).substring(4).split("").reverse().join("").substring(4);
+		}
+		password=encodePass(password);
 
 		//4.发送登录的请求
 		let res = await axios.post('/user/login', {
