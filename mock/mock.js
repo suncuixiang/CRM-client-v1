@@ -216,7 +216,7 @@ params: null*/
     let mockData = {
         code: 0,
         codeText: "OK",
-        // 随机生成15-30个数组元素
+        // 随机生成10-11个数组元素
         "data|10-11": [{
             "id|+1": 0,
             name: "@cname",
@@ -247,8 +247,8 @@ params: null*/
 
 /* 重置用户密码
 params:
-    userId=1
-    password=xxx */
+userId=1
+password=xxx */
 (function () {
     let mockData = {
         code: 0,
@@ -276,4 +276,96 @@ userId=1 */
         "codeText": 'OK' //=>CODE状态码描述
     };
     Mock.mock('/user/update', mockData);
+}());
+
+/* 新增用户信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK' //=>CODE状态码描述
+    };
+    Mock.mock('/user/add', mockData);
+}());
+
+/* 客户列表 */
+// 后台根据当前用户权限返回可被查看的用户信息列表（权限校验）
+(function(){
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK', //=>CODE状态码描述
+        "data|25": [{
+            "id|+1": 0,
+            name: "@cname",
+            "sex|1": [0, 1],
+            phone: /^1[3-9]\d{9}$/,
+            email: "@email",
+            QQ: /^[1-9]\d{4,11}$/,
+            weixin: /^1[3-9]\d{9}$/,
+            "type|+1": [
+                "重点客户",
+                "一般客户",
+                "放弃客户"
+            ],
+            address: "@city(true)",
+            userName:"@cname"
+        }],
+    };
+    let rurl = /\/customer\/list\?lx=\w/;
+    Mock.mock(rurl, mockData);
+}());
+
+/* 删除客户
+params:
+customerId=1 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK' //=>CODE状态码描述
+    };
+    let rurl = /\/customer\/delete\?customerId=\d/;
+    Mock.mock(rurl, 'get', mockData);
+}());
+
+/* 客户详细信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK', //=>CODE状态码描述
+        data:{
+            "id|+1": 0,
+            name: "@cname",
+            "sex|1": [0, 1],
+            phone: /^1[3-9]\d{9}$/,
+            email: "@email",
+            QQ: /^[1-9]\d{4,11}$/,
+            weixin: /^1[3-9]\d{9}$/,
+            "type|+1": [
+                "重点客户",
+                "一般客户",
+                "放弃客户"
+            ],
+            address: "@city(true)",
+            userName:"@cname"
+        }
+    };
+    let rurl = /\/customer\/info\?customerId=\d/;
+    Mock.mock(rurl, 'get', mockData);
+}());
+
+/* 修改客户信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK' //=>CODE状态码描述
+    };
+    Mock.mock('/customer/update', mockData);
+}());
+
+/* 新增客户信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK' //=>CODE状态码描述
+    };
+    Mock.mock('/customer/add', mockData);
 }());

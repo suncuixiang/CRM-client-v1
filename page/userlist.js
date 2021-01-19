@@ -64,7 +64,9 @@ let userListModule = (function () {
                 name,
                 sex,
                 job,
+                jobId,
                 department,
+                departmentId,
                 email,
                 phone,
                 desc
@@ -82,7 +84,7 @@ let userListModule = (function () {
                         ${
                             power.includes('userhandle') ? `
                             <td class="w20">
-                            <a href="useradd.html?${decodeURIComponent(`userId=${id}&name=${name}&sex=${sex}&department=${department}&job=${job}&email=${email}&phone=${phone}&desc=${desc}`)}">编辑1</a>
+                            <a href="useradd.html?${encodeURIComponent(`userId=${id}&name=${name}&sex=${sex}&departmentId=${departmentId}&jobId=${jobId}&email=${email}&phone=${phone}&desc=${desc}`)}">编辑1</a>
                             <a href="javascript:;">编辑2</a>
                             <a href="javascript:;">删除</a>
                             ${power.includes('resetpassword')?`<a href="javascript:;">重置密码</a>`:''}
