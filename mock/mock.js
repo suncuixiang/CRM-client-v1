@@ -75,7 +75,7 @@ params: null*/
         codeText: "OK",
         data: [{
                 title: "员工管理",
-                icon: "icon-user",
+                icon: "icon-yonghu",
                 children: [{
                         subTitle: "员工列表",
                         href: "page/userlist.html",
@@ -90,7 +90,7 @@ params: null*/
             },
             {
                 title: "部门管理",
-                icon: "icon-department",
+                icon: "icon-guanliyuan",
                 children: [{
                         subTitle: "部门列表",
                         href: "page/departmentlist.html",
@@ -105,7 +105,7 @@ params: null*/
             },
             {
                 title: "职务管理",
-                icon: "icon-job",
+                icon: "icon-zhiwuguanli",
                 children: [{
                         subTitle: "职务列表",
                         href: "page/joblist.html",
@@ -120,7 +120,7 @@ params: null*/
             },
             {
                 title: "客户管理",
-                icon: "icon-customer",
+                icon: "icon-kehuguanli",
                 children: [{
                         subTitle: "我的客户",
                         href: "page/customerlist.html?lx=my.html",
@@ -368,4 +368,42 @@ customerId=1 */
         "codeText": 'OK' //=>CODE状态码描述
     };
     Mock.mock('/customer/add', mockData);
+}());
+
+/* 回访记录信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK', //=>CODE状态码描述
+        "data|3":[
+            {
+                "id|+1": [0,1,2],
+                "customerId|+1": [0,1,2],
+                customerName:"@cname",
+                visitText: "@cparagraph(1)",
+                visitTime: "@date"
+            }
+        ]
+    };
+    let rurl = /\/visit\/list\?customerId=\d/;
+    Mock.mock(rurl, 'get', mockData);
+}());
+
+/* 删除回访信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK', //=>CODE状态码描述
+    };
+    let rurl = /\/visit\/delete\?visitId=\d/;
+    Mock.mock(rurl, 'get', mockData);
+}());
+
+/* 增加回访信息 */
+(function () {
+    let mockData = {
+        "code": 0, //=>0成功 1失败
+        "codeText": 'OK' //=>CODE状态码描述
+    };
+    Mock.mock('/visit/add', mockData);
 }());
